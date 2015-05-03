@@ -1,0 +1,74 @@
+<htm>
+	<head> </head>
+	<body>
+
+	<label> Login <input name="login" id="login" type="text" ></label>
+	<label>Senha  <input name="senha" id="senha" type="password"></label>
+	<button onclick="validate()">Login</button>
+
+
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script>
+	/*	validate = function(){
+			console.log('entrou');
+		var	login = $('#login').val();
+		console.log(login);
+		var	senha = $('#senha').val();
+		console.log(senha);
+			$.post(
+				"../api/login", 
+				{login: login, senha : senha},
+			 	function() {
+  					alert( "success" );
+				})
+  				.fail(function() {
+    				alert( "error" );
+  				})
+			);
+			console.log('post post');
+		}*/
+
+		validate = function(){
+			var	login = $('#login').val();
+		console.log(login);
+		var	senha = $('#senha').val();
+		console.log(senha);
+		/*$.ajax(
+                {
+                    type: "POST",
+                    url: '../api/login',
+                    data: "{login: login, senha : senha}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        //alert('success');
+                        $.each(data, function (i, theItem) {
+                            console.log(theItem);
+                        });
+                    },
+                    error: function (msg, url, line) {
+                        alert('error trapped in error: function(msg, url, line)');
+                        alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
+                        console.log(msg);
+                        console.log(url);
+                        console.log(line);
+                    }
+                });*/
+
+			$.ajax({
+				method: "GET",
+				url: "http://localhost/EstudoRest/SlimProdutos/index.php/cat",
+				data: {nome: login, senha : senha},
+				dataType: "jsonp",
+				})
+			.success(function(data) { console.log(data, "sucesso") })
+			.error(function(a, b, c){ console.log("erro", a, b, c) });
+		}
+	</script>
+
+
+
+
+	 </body>
+</html>
