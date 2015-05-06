@@ -25,20 +25,23 @@ $app->get('/', function () use ($app) {
 	try{
 	   	//traz itens para o menu
 	   	$conn = getConn();
-		$sql = "SELECT 	C.id as idClassificacoes,
-   						I.id as idItem,
-    					I.titulo as itemTitulo,
-    					TC.id as idTipoCategoria,
-    					TC.titulo as tipoCategoriaTitulo,
-    					CA.id as idCategoria,
-    					CA.titulo as categoriaTitulo,
-    					G.id as idGenero, 
-    					G.titulo as generoTitulo
+		$sql = "SELECT 
+					C.id as idClassificacoes,
+				    CA.id as idCategoria,
+				    CA.titulo as categoriaTitulo,
+				    TC.id as idTipoCategoria,
+				    TC.titulo as tipoCategoriaTitulo,
+				    I.id as idItem,
+				    I.titulo as itemTitulo,
+				    G.id as idGenero, 
+				    G.titulo as generoTitulo
 				FROM Classificacoes C
-				INNER JOIN Item I ON I.id = C.idItem
-				INNER JOIN TipoCategoria TC ON TC.id = C.idTipoCategoria
-				INNER JOIN Categorias CA ON CA.id = C.idCategoria
-				INNER JOIN Generos G ON G.id = C.idGenero";
+					INNER JOIN Item I ON I.id = C.idItem
+					INNER JOIN TipoCategoria TC ON TC.id = C.idTipoCategoria
+					INNER JOIN Categorias CA ON CA.id = C.idCategoria
+				    INNER JOIN Generos G ON G.id = C.idGenero
+				GROUP BY 
+					CA.id, TC.id, I.id, G.id, C.id";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		$menu = $stmt->fetchObject();
