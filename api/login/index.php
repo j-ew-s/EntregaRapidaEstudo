@@ -1,6 +1,6 @@
 <?php
 
-require '../vendor/Slim/Slim.php';
+require '../../vendor/Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->response()->header('Content-Type', 'application/json;charset=utf-8');
@@ -25,14 +25,21 @@ $app->get('/', function () {
 $app->get('/categorias','getCategorias');
 
 //GET REQUEST WITH PARAMETERS
-$app->get('/cat', function () use ($app) {
+$app->get('/login', function () use ($app) {
 	//RECIEVE PARAMETERS FROM GET
    	$nomeUsuario= $app->request()->get('nome');
    	$senha = $app->request()->get('senha');
 	try{
 	   	//START A CONNECTION AND EXECUTE SQL VIA PDO
 	   	$conn = getConn();
-		$sql = "SELECT * FROM Acessos WHERE nomeUsuario = :nomeUsuario AND senha = :senha";
+		$sql = "SELECT 
+				U.id,
+				U.nome
+				FROM Acessos A
+				INNER JOIN Usuarios U ON U.id  = A.idUsuario 
+				WHERE A.nomeUsuario = :nomeUsuario 
+					AND A.senha = :senha
+					AND U.excluido = 0";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindParam("nomeUsuario",$nomeUsuario);
 		$stmt->bindParam("senha",$senha);
