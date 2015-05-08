@@ -32,11 +32,10 @@ $app->get('/login', function () use ($app) {
 	try{
 	   	//START A CONNECTION AND EXECUTE SQL VIA PDO
 	   	$conn = getConn();
-		$sql = "SELECT 
-				U.id,
-				U.nome
+		$sql = "SELECT U.id,
+					   U.nome
 				FROM Acessos A
-				INNER JOIN Usuarios U ON U.id  = A.idUsuario 
+				INNER JOIN Usuarios U ON U.id = A.idUsuario 
 				WHERE A.nomeUsuario = :nomeUsuario 
 					AND A.senha = :senha
 					AND U.excluido = 0";
