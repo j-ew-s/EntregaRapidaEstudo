@@ -44,11 +44,11 @@ $app->get('/', function () use ($app) {
 					CA.id, TC.id, I.id, G.id, C.id";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$menu = $stmt->fetchObject();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 		//RESPONSE SUCCESS
-		echo $_GET['callback'] . "({result:".json_encode($menu)."})";
+		echo $_GET['callback'] . "({result:".json_encode($result)."})";
 	}
 	catch (Exception $e) {
     	//RESPONSE ERROR

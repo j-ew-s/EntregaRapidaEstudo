@@ -1,6 +1,7 @@
 <?php
 
 require '../../vendor/Slim/Slim.php';
+require '../../vendor/JWT/JWT.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->response()->header('Content-Type', 'application/json;charset=utf-8');
@@ -27,8 +28,8 @@ $app->get('/categorias','getCategorias');
 //GET REQUEST WITH PARAMETERS
 $app->get('/login', function () use ($app) {
 	//RECIEVE PARAMETERS FROM GET
-   	$nomeUsuario= $app->request()->get('nome');
-   	$senha = $app->request()->get('senha');
+   	$nomeUsuario= "gabriel.scavassa";//$app->request()->get('nome');
+   	$senha = "123";//$app->request()->get('senha');
 	try{
 	   	//START A CONNECTION AND EXECUTE SQL VIA PDO
 	   	$conn = getConn();
@@ -45,7 +46,8 @@ $app->get('/login', function () use ($app) {
 		$stmt->execute();
 		$acesso = $stmt->fetchObject();
 		//RESPONSE SUCCESS
-		echo $_GET['callback'] . "({result:".json_encode($acesso)."})";
+		echo "{categorias:".json_encode($acesso)."}";
+		//echo $_GET['callback'] . "({result:".json_encode($acesso)."})";
 	}
 	catch (Exception $e) {
     	//RESPONSE ERROR
@@ -59,6 +61,7 @@ function getCategorias()
 	$categorias = $stmt->fetchAll(PDO::FETCH_OBJ);
 	echo "{categorias:".json_encode($categorias)."}";
 };
+
 
 
 $app->run();
