@@ -48,7 +48,7 @@ $app->get('/login', function () use ($app) {
 		$stmt->execute();
 		$acesso = $stmt->fetchObject();
 
-		//RESPONSE SUCCESS
+		//RESPONSE WITH JWT FORMAT ARCHIVE
 		$acesss = JWT::encode($acesso, 'acesso');
 		echo "{categorias:".json_encode($acesss)."}";
 		//echo $_GET['callback'] . "({result:".json_encode($acesso)."})";
@@ -63,7 +63,7 @@ $app->get('/login', function () use ($app) {
 //GET parameters from Header and send back to APP
 $app->get('/logout', function () use ($app) {
 	$headers = apache_request_headers();
-
+//GET THE HEADERS FROM REQUEST
 foreach ($headers as $header => $value) {
     echo "$header: $value <br />\n";
     if($header == "Connection"){
