@@ -53,9 +53,9 @@ $app->post('/login', function () use ($app) {
 		$acesso = $stmt->fetchObject();
 
 		//RESPONSE WITH JWT FORMAT ARCHIVE
-		$acesss = JWT::encode($acesso, 'acesso');
+		$token = JWT::encode($acesso, 'acesso');
 		//echo "{result:".json_encode($acesss)."}";
-		echo "({result:".json_encode($acesss)."})";
+		echo "({result:".json_encode($token)."})";
 		//echo "{categorias:".json_encode($acesss)."}";
 		//echo $_GET['callback'] . "({result:".json_encode($acess)."})";
 
