@@ -17,9 +17,9 @@
 
 
 			$.ajax({
-				method: "GET",
+				method: "POST",
 				url: "http://localhost/EntregaRapidaEstudo/api/login/index.php/login",
-				data: {nome: login, senha : senha},
+				
 				dataType: "jsonp",
 				})
 			.success(function(data) { console.log(data, "sucesso") })
