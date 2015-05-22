@@ -30,8 +30,8 @@ $app->post('/login', function () use ($app) {
 	//RECIEVE PARAMETERS FROM GET
    	$nomeUsuario= "gabriel.scavassa";//$app->request()->get('nome');
    	$senha = "123";//$app->request()->get('senha');
-   	//	$nomeUsuario= $app->request()->get('nome');
-   //	$senha = $app->request()->get('senha');
+   		$nomeUsuario= $app->request()->get('nome');
+   	$senha = $app->request()->get('senha');
 	try{
 
 	   	//START A CONNECTION AND EXECUTE SQL VIA PDO
@@ -54,6 +54,9 @@ $app->post('/login', function () use ($app) {
 
 		//RESPONSE WITH JWT FORMAT ARCHIVE
 		$token = JWT::encode($acesso, 'acesso');
+		//echo 'antes';
+		//$token = Authentication::generateAuthentication($acesso);
+		//echo 'depois';
 		//echo "{result:".json_encode($acesss)."}";
 		echo "({result:".json_encode($token)."})";
 		//echo "{categorias:".json_encode($acesss)."}";
