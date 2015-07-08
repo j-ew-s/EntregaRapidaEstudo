@@ -1,11 +1,15 @@
 <?php
 
-class UsuariosController extends Usuarios {
+//require_once "../models/usuariosModel.php";
+require_once _APP . "/models/appModels.php";
+
+class UsuariosController extends BaseController {
   
   public function getUsuarios(){
 
     $id = 1; 
-    $response =  Usuarios::selectUser($id);
+    $usu = new Usuarios();
+    $response =  $usu->selectUser($id);
     
     $message = "";
     
@@ -16,22 +20,36 @@ class UsuariosController extends Usuarios {
   public function addUsuarios(){
     echo("1");
     
-    $usuarioPost =  $this->getParametrosUsuario();      
-    echo($usuarioPost);
-    $response =  Usuarios::insertOrUpdate($usuarioPost);
+    $usuarioPost =  $this->getParametrosUsuario();
+          
+    echo($usuarioPost['nome']);
+    echo($usuarioPost['cpf']);
+    echo($usuarioPost['rg']);
+    echo($usuarioPost['email']);
+    echo($usuarioPost['dataalteracao']);
+    echo($usuarioPost['datacriacao']);
+    echo($usuarioPost['excluido']);
+          
+          
+    $usu = new Usuarios();
+    $response =  $usu->insertOrUpdate($usuarioPost);
 
     $message = "";
   
-    return  helpers::jsonResponse(false, $message, $id );
+    return  helpers::jsonResponse(false, $message, $response );
   }
   
   
   private function getParametrosUsuario() {
+    $date = date('m/d/Y h:i:s a', time());
     return array(
-      'nome'   => $app->request->params("nome", false),
+      'nome'   => $this->app->request->params("nome", false),
       'cpf'   => $this->app->request->params("cpf", false),
       'rg' => $this->app->request->params("rg", false),
       'email' => $this->app->request->params("email", false),
+      'dataalteracao' => $date,
+      'datacriacao' => $date,
+      'excluido' => 0
     );
   }
  /* 
