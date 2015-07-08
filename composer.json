@@ -1,6 +1,13 @@
 {
   "require": {
     "slim/slim": "2.4.3",
-    "illuminate/database": "v4.2.9"
+    "illuminate/database": "v4.2.9",
+    "illuminate/validation": "*"
+  },
+  "autoload": {
+    "classmap": [
+      "app/controllers",
+      "app/models"
+    ]
   }
 }

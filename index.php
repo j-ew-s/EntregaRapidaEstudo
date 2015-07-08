@@ -37,6 +37,13 @@ foreach (glob( _APP ."/controllers/*.php") as $filename)
     require_once $filename;
 }
 
+
+# === Autoload
+# ==================================================
+//require_once 'vendor/autoload.php';
+
+require_once 'app/routes.php';
+
 # === run slim
 $app->run();
 

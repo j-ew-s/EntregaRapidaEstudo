@@ -6,4 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'BaseController' => $baseDir . '/app/controllers/baseController.php',
+    'Guitars' => $baseDir . '/app/models/guitarsModel.php',
+    'Illuminate\\Validation\\DatabasePresenceVerifier' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/DatabasePresenceVerifier.php',
+    'Illuminate\\Validation\\Factory' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/Factory.php',
+    'Illuminate\\Validation\\PresenceVerifierInterface' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/PresenceVerifierInterface.php',
+    'Illuminate\\Validation\\ValidationServiceProvider' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/ValidationServiceProvider.php',
+    'Illuminate\\Validation\\Validator' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/Validator.php',
+    'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Resources/stubs/SessionHandlerInterface.php',
+    'Usuarios' => $baseDir . '/app/models/usuariosModel.php',
 );
