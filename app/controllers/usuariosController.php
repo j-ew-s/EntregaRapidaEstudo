@@ -67,6 +67,7 @@ class UsuariosController extends BaseController {
       // CRIA O ARRAY E RETORNA
       return array(
           'nome'          => $this->app->request->params("nome", false),
+          'sobrenome'     => $this->app->request->params("sobrenome", false),
           'cpf'           => $this->app->request->params("cpf", false),
           'rg'            => $this->app->request->params("rg", false),
           'email'         => $this->app->request->params("email", false),

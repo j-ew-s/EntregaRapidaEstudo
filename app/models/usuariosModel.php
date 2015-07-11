@@ -4,7 +4,7 @@ class Usuarios extends Illuminate\Database\Eloquent\Model
 {
   protected $table = 'usuarios';
  
- /**
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -20,12 +20,13 @@ class Usuarios extends Illuminate\Database\Eloquent\Model
    
     $usuario = new Usuarios();
     
-    $usuario->datacriacao = $usuarioPost["datacriacao"];
-    $usuario->excluido = $usuarioPost["excluido"];  
-    $usuario->nome = $usuarioPost["nome"];
-    $usuario->rg = $usuarioPost["rg"];
-    $usuario->cpf = $usuarioPost["cpf"];
-    $usuario->email = $usuarioPost["email"];
+    $usuario->datacriacao   = $usuarioPost["datacriacao"];
+    $usuario->excluido      = $usuarioPost["excluido"];  
+    $usuario->nome          = $usuarioPost["nome"];
+    $usuario->sobrenome     = $usuarioPost["sobrenome"];
+    $usuario->rg            = $usuarioPost["rg"];
+    $usuario->cpf           = $usuarioPost["cpf"];
+    $usuario->email         = $usuarioPost["email"];
     $usuario->dataalteracao = $usuarioPost["dataalteracao"];
       
     $usuario->save();
@@ -36,11 +37,13 @@ class Usuarios extends Illuminate\Database\Eloquent\Model
   // RETORNA USUÁRIOS BASEADO NO DIGITADO
   public function selectUser($search)
   {
- 
+    echo($search);
     $usuario = new Usuarios();
     
     if ( $search ) { 
-      $usuario = $usuario->where('nome', 'like', '%'.$search.'%')->get();                   
+      $usuario = $usuario->where('nome', 'like', '%'.$search.'%')
+                         ->orwhere('sobrenome', 'like', '%'.$search.'%')
+                         ->get();                   
     } else {
       $usuario = $usuario->get();
     }
