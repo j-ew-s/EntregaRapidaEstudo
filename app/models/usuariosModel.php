@@ -14,9 +14,9 @@ class Usuarios extends Illuminate\Database\Eloquent\Model
   /*
   FUNÇÃO PARA INSERIR OU DAR UPDATE EM UM USUÁRIO
   */
-  public function insertOrUpdate($usuarioPost){
+  public function insert($usuarioPost){
     
-    echo("model ");
+    echo("Entrou Insert Usuario ");
    
     $usuario = new Usuarios();
     
@@ -28,25 +28,25 @@ class Usuarios extends Illuminate\Database\Eloquent\Model
     $usuario->email = $usuarioPost["email"];
     $usuario->dataalteracao = $usuarioPost["dataalteracao"];
       
-    echo($usuario->nome);
-    
-    $retorno = $usuario->save();
-    echo("after save");
-    
-    return $retorno;
-    //$usuario->save();
+    $usuario->save();
+         
+    return $usuario->id;
   }
   
-  // RETORNA USUÁRIOS - BASEADO EM ID OU NÃO
-  public function selectUser($id = false)
+  // RETORNA USUÁRIOS BASEADO NO DIGITADO
+  public function selectUser($search)
   {
-
-    if ( $id ) { 
-      $usuario = Usuarios::find($id); 
+ 
+    $usuario = new Usuarios();
+    
+    if ( $search ) { 
+      $usuario = $usuario->where('nome', 'like', '%'.$search.'%')->get();                   
     } else {
-      $usuario = $table->get();
+      $usuario = $usuario->get();
     }
+    
     return $usuario;
     
   }
+  
 }

@@ -4,8 +4,7 @@ $app->get("/", "BaseController:autenticate");
 
 # Listagem
 $app->get("/usuarios", "UsuariosController:getUsuarios");
-
-$app->get("/usuarios/:id", "UsuariosController:getUsuarios");
+$app->get("/usuarios/:search", "UsuariosController:getUsuarios");
 
 # Form Insert e Update
 $app->post("/usuarios", "UsuariosController:addUsuarios");
