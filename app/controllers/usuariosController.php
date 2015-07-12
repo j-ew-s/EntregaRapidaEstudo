@@ -38,23 +38,72 @@ class UsuariosController extends BaseController {
   *   ENTRADA: PARAMETROS DO POST
   *   SAIDA:   RETURN DO STATUS APÓS SALVAR
   */  
-  public function addUsuarios(){
+  public function addUsuarios(){ 
+
       //BUSCA OS PARAMETROS
       $usuarioPost =  $this->getParametersToInsertUsuario();
-      //SALVA O ENDEREÇO
-      $end = new Enderecos();
-      $endId =  $end->insert($usuarioPost);
-      //SALVA O USUARIO     
+      //VALIDA EMAIL JA EXISTENTE
       $usu = new Usuarios();
-      $usuId =  $usu->insert($usuarioPost);
-      //SALVA ENDERECO-USUARIO
-      $usuEnd = new UsuarioEndereco();
-      $usuEndResponse =  $usuEnd->insert($usuId, $endId);
-      //RETORNA MENSAGEM DE SUCESSO OU ERRO
-      $message = "";
-      $response ="";
+      $usuEmailDuplicado =  $usu->VerificaEmailDuplicado($usuarioPost["email"]);
+      echo('Resultado = ' + $usuEmailDuplicado);
+      //VALIDA RESULTADO DA PESQUISA DE EMAIL
+      if($usuEmailDuplicado == 1){
+         echo('entrou');
+          //VERIFICA SE LOGIN NÃO É DUPLICADO
+          $acesso  = new Acessos();
+          $acessoDuplicado = $acesso->VerificaAcessoDuplicado($usuarioPost["login"]);
+          //VALIDA O RESULTADO DO ACESSO
+          if($acessoDuplicado == 1){
+              //INICIALIZA AS MENSAGENS
+              $message = "Cadastro realizado com sucesso.";
+              $status = "200";
+              //SALVA O ENDEREÇO
+              $end = new Enderecos();
+              $endId =  $end->insert($usuarioPost);
+              if($endId > 0){
+                //SALVA O USUARIO     
+                $usuId =  $usu->insert($usuarioPost);
+                if($usuId > 0){
+                  //SALVA ENDERECO-USUARIO
+                  $usuEnd = new UsuarioEndereco();
+                  $usuEndId=  $usuEnd->insert($usuId, $endId);
+                  if($usuEndId > 0){
+                    //CRIAR LOGIN DE USUÁRIO
+                    $acessoId = $acesso->insert($usuarioPost,$usuId);
+                    if($acessoId < 0){
+                       $message = "Erro ao salvar o acesso.";
+                       $status = "500";
+                    }
+                  }
+                  else{
+                    //RETORNA MENSAGEM DE SUCESSO OU ERRO
+                    $message = "Erro ao salvar o relacionamento Usuário - Endereço.";
+                    $status = "500";
+                  }
+                }
+                else{
+                  //RETORNA MENSAGEM DE SUCESSO OU ERRO
+                  $message = "Erro ao salvar Usuário.";
+                  $status = "500";
+                }       
+              }else{
+                //RETORNA MENSAGEM DE SUCESSO OU ERRO
+                $message = "Erro ao salvar Endereço";
+                $status ="500";
+              }
+          }else{
+          //RETORNA MENSAGEM DE SUCESSO OU ERRO
+          $message = "Login informado já existe para outro usuário.";
+          $status ="";  
+        }
+      }
+      else{
+          //RETORNA MENSAGEM DE SUCESSO OU ERRO
+          $message = "E-mail informado já existe para outro usuário.";
+          $status ="";  
+      }
       //RETORNA JSON PARA O FRONT
-      return  helpers::jsonResponse(false, $message, $response );
+      return  helpers::jsonResponse(false, $message, $status );
   }
   /*
   *  AÇÃO:    FUNÇÃO PARA RETORNAR ARRAY DE PARAMETROS PASSADOS PELO FORM
@@ -78,7 +127,9 @@ class UsuariosController extends BaseController {
           'rua'           =>$this->app->request->params("rua", false),
           'bairro'        =>$this->app->request->params("bairro", false),
           'numero'        =>$this->app->request->params("numero", false),
-          'complemento'   =>$this->app->request->params("complemento", false)
+          'complemento'   =>$this->app->request->params("complemento", false),
+          'login'   =>$this->app->request->params("login", false),
+          'senha'   =>$this->app->request->params("senha", false),
       );
   }
   

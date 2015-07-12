@@ -52,4 +52,33 @@ class Usuarios extends Illuminate\Database\Eloquent\Model
     
   }
   
+    
+  /* 
+  *  AÇÃO:    VERIFICA SE E-MAIL JÁ É UTILIZADO
+  *  ENTRADA: EMAIL
+  *  SAIDA:   STATUS
+  */
+  public function VerificaEmailDuplicado($email)
+  {
+    $usuario = new Usuarios();
+    
+    if (!empty( $email)) { 
+      
+      $usu = $usuario->select("id")->where("email","like", $email)->get();   
+      
+      if(empty($usu[0])) { //NAO EXISTE USUARIO COM ESTE EMAIL
+        
+        return 1;
+      } 
+      else{ //JA EXISTE USUARIO COM ESTE EMAIL
+        echo($usu[0]);
+        return 0;
+      }                  
+    } 
+    else
+    { //EMAIL ESTA VAZIO
+      return 0;
+    }         
+  }
+  
 }
