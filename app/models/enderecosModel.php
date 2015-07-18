@@ -10,21 +10,26 @@ class Enderecos extends Illuminate\Database\Eloquent\Model
      * @var bool
      */
     public $timestamps = false;
-      
-    /* FUNÇÃO PARA INSERIR OU DAR UPDATE EM UM USUÁRIO */
-    
+          
     public function get($query){
       
       echo("getEndereco!");
        return "200";
     }
-    
+    /*
+    * ACAO    :
+    * ENTRADA :
+    * SAIDA   :
+    */
     public function insert($enderecoPost){
      
         echo("Entrou Insert Endereco");
        
         $endereco = new Enderecos();
         
+        $endereco->rua = $enderecoPost["pais"];
+        $endereco->rua = $enderecoPost["estado"];
+        $endereco->rua = $enderecoPost["pais"];
         $endereco->rua = $enderecoPost["rua"];
         $endereco->bairro = $enderecoPost["bairro"];  
         $endereco->cep = $enderecoPost["cep"];

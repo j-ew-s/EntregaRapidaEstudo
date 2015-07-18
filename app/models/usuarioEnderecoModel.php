@@ -12,7 +12,9 @@ class UsuarioEndereco extends Illuminate\Database\Eloquent\Model
     public $timestamps = false;
     
   /*
-  FUNÇÃO PARA INSERIR OU DAR UPDATE EM UM USUÁRIO
+   *  ACAO    : INSEIR USUARIO E ENDERECO
+   *  ENTRADA : ID DO USUARIO ID DO ENREDECO
+   *  SAIDA   : ID DO RELACIONAENTO
   */
   public function insert($usuId, $endId){
       
