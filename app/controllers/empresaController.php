@@ -5,12 +5,12 @@ require_once _APP . "/models/appModels.php";
 
 class EmpresasController extends BaseController {
   
-  public function getAllUsuarios(){
- 
+  public function getAllEmpresas(){
+      
       $search = $this->app->request->params("search", false);
       
-      $usu = new Usuarios();
-      $response =  $usu->selectUser($search);
+      $emp = new Empresas();
+      $response =  $emp->SelectEmpresas($search);
       
       $message = "";
       
@@ -21,13 +21,13 @@ class EmpresasController extends BaseController {
   *  ENTRADA:  PARAMETROS DA BUSCA ENVIADOS POR POST
   *  SAIDA:    RESULTADO DA BUSCA NA TABELA USUÁRIO E O STATUS DA CONSULTA
   */
-  public function getUsuarios(){
+  public function getEmpresas(){
       // RECEBE OS PARAMETROS DE ENTRADA
       $search = $this->app->request->params("search", false);
       // INSTANCIA A CLASSE USUÁRIO
-      $usu = new Usuarios();
+       $emp = new Empresas();
       // EXECUTA A CONSULTA
-      $response =  $usu->selectUser($search);
+      $response =  $emp->selectEmpresa($search);
       // PREPARA A RESPOSTA
       $message = "";
       // RETORNA O RESULTADO VIA JSON
@@ -41,13 +41,13 @@ class EmpresasController extends BaseController {
   public function addEmpresas(){ 
       
       //BUSCA OS PARAMETROS
-      $empresaPost =  $this->getParametersToInsertUsuario();
+      $empresaPost =  $this->getParametersToInsertEmpresas();
       //VALIDA EMAIL JA EXISTENTE
       $empresas = new Empresas();
-	  //VERIFICAR CNPJ, NOME E RAZAO SOCIAL.
-     $empresaDuplicada = 4;
+	    //VERIFICAR CNPJ, NOME E RAZAO SOCIAL.
+      $empresaDuplicada = $empresas->VerificaEmpresaDuplicada($empresaPost);
       //VALIDA RESULTADO DA PESQUISA DE DUPLICIDADE
-      if($empresaDuplicada > 3){
+      if($empresaDuplicada > 0){
           $message = "Cadastro realizado com sucesso.";
           $status = "200";
           //SALVA O ENDEREÇO
@@ -73,24 +73,24 @@ class EmpresasController extends BaseController {
             }       
           }else{
             //RETORNA MENSAGEM DE ERRO
-            $message = "Erro ao salvar Endereço";
+            $message = "Erro ao salvar Endereço.";
             $status ="500";
           }
       }
       else{
           //RETORNA MENSAGEM DE ERRO
-          $message = "E-mail informado já existe para outro usuário.";
+          $message = "Dados da empresa já existem para outra empresa.";
           $status ="";  
       }
       //RETORNA JSON PARA O FRONT
       return  helpers::jsonResponse(false, $message, $status );
   }
   /*
-  *  AÇÃO:    FUNÇÃO PARA RETORNAR ARRAY DE PARAMETROS PASSADOS PELO FORM
+  *  AÇÃO:    RETORNA ARRAY DE PARAMETROS PASSADOS PELO FORM
   *  ENTRADA: PARAMETROS ENVIADOS POR POST
   *  SAIDA:   ARRAY DOS PARAMETROS ENVIADOS POR POST
   */
-  private function getParametersToInsertUsuario() {
+  private function getParametersToInsertEmpresas() {
       // CONFIGURA A DATA E HORA
       $date = date('m/d/Y h:i:s a', time());
       // CRIA O ARRAY E RETORNA
@@ -119,6 +119,40 @@ class EmpresasController extends BaseController {
           'datacriacao'             => $date,
           'excluido'                => 0
       );
+  }
+    /*
+  *  AÇÃO:    VALIDAR CAMPOS OBRIGATÓRIOS NO CADASTRO DE EMPRESA
+  *  ENTRADA: PARAMETROS ENVIADOS POR POST
+  *  SAIDA:   MENSAGEM DE ERRO QUANDO INFORMAÇÃO OBRIGATÓRIA NAO EXISTIR OU MENSAGEM VAZIA QUANDO INFOS. OK
+  */
+  private function ValidaDadosPost($empresaPost){
+    $mensagem = "";
+
+   // VALIDA SE FOI INFORMADO O TIPO DE USUÁRIO (FISICO OU JURÍDICO)
+   if(empty($empresaPost["idTipoPessoa"])) {
+     
+     if($empresaPost["idTipoPessoa"] == 1) {
+       if(empty($empresaPost["cpf"])){
+         return $mensagem = "O campo CPF para o tipo de usuário Pessoa Física é obrigatório.";
+       }
+     }
+     if($empresaPost["idTipoPessoa"] == 2) {
+        if(empty($empresaPost["cnpj"])){
+         return $mensagem = "O campo CNPJ para o tipo de usuário Pessoa Jurídica é obrigatório.";
+       }
+     }
+     else {
+      return $mensagem = "O tipo de usuário deve ser Físico ou Jurídico.";
+     }
+
+   }else{
+     return $mensagem = "Escolha um tipo de usuário: Físico ou Jurídico.";
+   }
+   
+   //VALIDAR CAMPOS DO ENDEREÇO
+   
+   return $mensagem
+   
   }
   
 }

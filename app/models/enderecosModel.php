@@ -13,8 +13,14 @@ class Enderecos extends Illuminate\Database\Eloquent\Model
           
     public function get($query){
       
-      echo("getEndereco!");
-       return "200";
+         $endereco = DB::table('usuarioEndereco')
+          ->join('enredecos', 'usuarioendereco.endId', '=','enderecos.id' )
+          ->join('estado', 'pais.id', '=', 'estado.pais')
+          ->join('cidade', 'esdato.id', '=', 'cidade.estado')
+          ->select('enderecos.*', 'pais.nome', 'pais.sigla', 'estado.nome', 'estado.uf', 'estado.nome', 'cidade.nome')
+          ->get();
+          
+          return $endereco;
     }
     /*
     * ACAO    :
@@ -39,9 +45,28 @@ class Enderecos extends Illuminate\Database\Eloquent\Model
                  
        $endereco->save();
        
-       return $endereco->id;
-        
+       return $endereco->id;   
     
+    }
+    /*
+    *  AÇÃO:    RETORNAR DADOS DE PAIS ESTADO E CIDADE PARA PREENCHER FORMULPARIO DE CADASTRO
+    *  ENTRADA: 
+    *  SAIDA:   PAIS: ID E NOME, ESTADO: ID E UF E CIDADE: ID E NOME.
+    */
+    public function selectPaisEstadoCidade(){
+      
+      $PaisEstadoCidade = DB::table('pais')
+            ->join('estado', 'pais.id', '=', 'estado.pais')
+            ->join('cidade', 'esdato.id', '=', 'cidade.estado')
+            ->select('pais.id','pais.nome', 'estado.id','estado.uf', 'cidade.id','cidade.nome')
+            ->get();
+            
+      if($PaisEstadoCidade){
+        return $PaisEstadoCidade;
+      }
+      else{
+        return "Status: 500";
+      }
     }
   
   }

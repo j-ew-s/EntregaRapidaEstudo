@@ -17,6 +17,22 @@ class UsuariosController extends BaseController {
       return  helpers::jsonResponse(false, $message, $response );
   }
   /*
+  *  AÇÃO:    RETORNA PAIS, ESTADO E CIDADE PARA O CADASTRO
+  *  ENTRADA: 
+  *  SAIDA:   LISTA DE PAIS, ESTADO E CIDADE
+  */
+  public function createUsuarios(){
+    
+      $end = new Enderecos();
+      
+      $response = $end.selectPaisEstadoCidade();
+      
+      $message = "";
+      
+      return  helpers::jsonResponse(false, $message, $response );  
+    
+  }
+  /*
   *  AÇÃO:     LISTAR USUÁRIOS DE ACORDO COM A BUSCA
   *  ENTRADA:  PARAMETROS DA BUSCA ENVIADOS POR POST
   *  SAIDA:    RESULTADO DA BUSCA NA TABELA USUÁRIO E O STATUS DA CONSULTA

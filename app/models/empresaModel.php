@@ -42,50 +42,50 @@ class Empresas extends Illuminate\Database\Eloquent\Model
   }
   
   // RETORNA USUÁRIOS BASEADO NO DIGITADO
-  public function selectEmpresa($search)
-  {
-    echo($search);
-    $empresa = new Empresas();
-    
-    if ( $search ) { 
-      $usuario = $usuario->where('nomeFantasia', 'like', '%'.$search.'%')
-                         ->orwhere('razaoSocial', 'like', '%'.$search.'%')
-                         ->get();                   
-    } else {
-      $usuario = $usuario->get();
-    }
-    
-    return $usuario;
-    
+  public function selectEmpresa($search){
+      echo($search);
+      $empresa = new Empresas();
+      
+      if ( $search ) { 
+        $empresa = $empresa->where('nomeFantasia', 'like', '%'.$search.'%')
+                           ->orwhere('razaoSocial', 'like', '%'.$search.'%')
+                           ->get();                   
+      } else {
+        $empresa = $empresa->get();
+      }
+      
+      return $empresa; 
   }
   
     
   /* 
-  *  AÇÃO:    VERIFICA SE E-MAIL JÁ É UTILIZADO
-  *  ENTRADA: EMAIL
+  *  AÇÃO:    VERIFICA SE DADOS PASSADOS JÁ SÃO UTILIZADOS
+  *  ENTRADA: POST DA EMPRESA
   *  SAIDA:   STATUS
   */
-  public function VerificaEmailDuplicado($email)
-  {
-    $usuario = new Usuarios();
-    
-    if (!empty( $email)) { 
+  public function VerificaEmpresaDuplicada($empresaPost){
+      $empresas = new Empresas();
       
-      $usu = $usuario->select("id")->where("email","like", $email)->get();   
-      
-      if(empty($usu[0])) { //NAO EXISTE USUARIO COM ESTE EMAIL
+      if (!empty( $empresaPost)) { 
         
-        return 1;
+        $emp = $empresas->select("id")->where("cnpj","like", $empresaPost["cnpj"])
+                                      ->orwhere("cpf","like", $empresaPost["cpf"])
+                                      ->orwhere("nomeFantasia","like", $empresaPost["nomeFantasia"])
+                                      ->orwhere("razaoSocial","like", $empresaPost["razaoSocial"])->get();   
+        
+        
+        if(empty($emp[0])) { //NAO EXISTE EMPRESA COM ALGUM DAQUELES DADOS   
+          return 1;
+        } 
+        else{ //JA EXISTE EMPRESA COM ESTES DADOS
+          echo($emp[0]);
+          return 0;
+        }                  
       } 
-      else{ //JA EXISTE USUARIO COM ESTE EMAIL
-        echo($usu[0]);
+      else
+      { //DADOS VAZIOS
         return 0;
-      }                  
-    } 
-    else
-    { //EMAIL ESTA VAZIO
-      return 0;
-    }         
+      }         
   }
   
 }
