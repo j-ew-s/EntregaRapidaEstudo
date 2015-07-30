@@ -151,7 +151,7 @@ class EmpresasController extends BaseController {
    
    //VALIDAR CAMPOS DO ENDEREÇO
    
-   return $mensagem
+   return $mensagem;
    
   }
   
