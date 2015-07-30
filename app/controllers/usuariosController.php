@@ -142,8 +142,6 @@ class UsuariosController extends BaseController {
           'pais'          => $this->app->request->params("pais", false),
           'estado'        => $this->app->request->params("estado", false),
           'cidade'        => $this->app->request->params("cidade", false),
-          'rua'           => $this->app->request->params("rua", false),
-          'bairro'        => $this->app->request->params("bairro", false),
           'cep'           => $this->app->request->params("cep", false),
           'rua'           =>$this->app->request->params("rua", false),
           'bairro'        =>$this->app->request->params("bairro", false),
