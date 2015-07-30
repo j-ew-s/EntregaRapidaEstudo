@@ -139,18 +139,18 @@ class UsuariosController extends BaseController {
           'dataalteracao' => $date,
           'datacriacao'   => $date,
           'excluido'      => 0,
-          'pais'                    => $this->app->request->params("pais", false),
-          'estado'                  => $this->app->request->params("estado", false),
-          'cidade'                  => $this->app->request->params("cidade", false),
-          'rua'                     => $this->app->request->params("rua", false),
-          'bairro'                  => $this->app->request->params("bairro", false),
+          'pais'          => $this->app->request->params("pais", false),
+          'estado'        => $this->app->request->params("estado", false),
+          'cidade'        => $this->app->request->params("cidade", false),
+          'rua'           => $this->app->request->params("rua", false),
+          'bairro'        => $this->app->request->params("bairro", false),
           'cep'           => $this->app->request->params("cep", false),
           'rua'           =>$this->app->request->params("rua", false),
           'bairro'        =>$this->app->request->params("bairro", false),
           'numero'        =>$this->app->request->params("numero", false),
           'complemento'   =>$this->app->request->params("complemento", false),
-          'login'   =>$this->app->request->params("login", false),
-          'senha'   =>$this->app->request->params("senha", false),
+          'login'         =>$this->app->request->params("login", false),
+          'senha'         =>$this->app->request->params("senha", false)
       );
   }
   
