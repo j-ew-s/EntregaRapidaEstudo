@@ -33,9 +33,9 @@ class Enderecos extends Illuminate\Database\Eloquent\Model
        
         $endereco = new Enderecos();
         
-        $endereco->rua = $enderecoPost["pais"];
-        $endereco->rua = $enderecoPost["estado"];
-        $endereco->rua = $enderecoPost["pais"];
+        $endereco->pais = $enderecoPost["pais"];
+        $endereco->estado = $enderecoPost["estado"];
+        $endereco->cidade = $enderecoPost["cidade"];
         $endereco->rua = $enderecoPost["rua"];
         $endereco->bairro = $enderecoPost["bairro"];  
         $endereco->cep = $enderecoPost["cep"];
