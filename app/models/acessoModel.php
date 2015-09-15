@@ -1,6 +1,6 @@
 <?php
 
-class Acessos extends Illuminate\Database\Eloquent\Model
+class Acesso extends Illuminate\Database\Eloquent\Model
 {
   protected $table = 'acessos';
  
@@ -15,8 +15,6 @@ class Acessos extends Illuminate\Database\Eloquent\Model
   FUNÇÃO PARA INSERIR OU DAR UPDATE EM UM USUÁRIO
   */
   public function insert($usuarioPost, $usuId){
-    
-    echo("   ->  Entrou Insert acesso ");
    
     $acesso = new Acessos();
     

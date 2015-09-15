@@ -3,7 +3,7 @@
 //require_once "../models/usuariosModel.php";
 require_once _APP . "/models/appModels.php";
 
-class UsuariosController extends BaseController {
+class UsuarioController extends BaseController {
   
   public function getAllUsuarios(){
  
@@ -37,11 +37,11 @@ class UsuariosController extends BaseController {
   *  ENTRADA:  PARAMETROS DA BUSCA ENVIADOS POR POST
   *  SAIDA:    RESULTADO DA BUSCA NA TABELA USUÁRIO E O STATUS DA CONSULTA
   */
-  public function getUsuarios(){
+  public function getUsuario(){
       // RECEBE OS PARAMETROS DE ENTRADA
       $search = $this->app->request->params("search", false);
       // INSTANCIA A CLASSE USUÁRIO
-      $usu = new Usuarios();
+      $usu = new Usuario();
       // EXECUTA A CONSULTA
       $response =  $usu->selectUser($search);
       // PREPARA A RESPOSTA

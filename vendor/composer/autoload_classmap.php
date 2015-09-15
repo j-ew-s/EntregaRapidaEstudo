@@ -6,13 +6,21 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Acessos' => $baseDir . '/app/models/acessoModel.php',
     'BaseController' => $baseDir . '/app/controllers/baseController.php',
-    'Guitars' => $baseDir . '/app/models/guitarsModel.php',
+    'EmpresaEndereco' => $baseDir . '/app/models/empresaEnderecoModel.php',
+    'Empresas' => $baseDir . '/app/models/empresaModel.php',
+    'EmpresasController' => $baseDir . '/app/controllers/empresaController.php',
+    'Enderecos' => $baseDir . '/app/models/enderecosModel.php',
     'Illuminate\\Validation\\DatabasePresenceVerifier' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/DatabasePresenceVerifier.php',
     'Illuminate\\Validation\\Factory' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/Factory.php',
     'Illuminate\\Validation\\PresenceVerifierInterface' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/PresenceVerifierInterface.php',
     'Illuminate\\Validation\\ValidationServiceProvider' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/ValidationServiceProvider.php',
     'Illuminate\\Validation\\Validator' => $vendorDir . '/illuminate/validation/src/Illuminate/Validation/Validator.php',
+    'Produtos' => $baseDir . '/app/models/produtoModel.php',
+    'ProdutosController' => $baseDir . '/app/controllers/produtosController.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Resources/stubs/SessionHandlerInterface.php',
+    'UsuarioEndereco' => $baseDir . '/app/models/usuarioEnderecoModel.php',
     'Usuarios' => $baseDir . '/app/models/usuariosModel.php',
+    'UsuariosController' => $baseDir . '/app/controllers/usuariosController.php',
 );

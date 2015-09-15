@@ -1,6 +1,6 @@
 <?php
 
-class Enderecos extends Illuminate\Database\Eloquent\Model
+class Endereco extends Illuminate\Database\Eloquent\Model
 {
   protected $table = 'enderecos';
  

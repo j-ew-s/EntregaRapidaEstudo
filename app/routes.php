@@ -3,21 +3,30 @@
 $app->get("/", "BaseController:autenticate");
 
 # Listagem
-$app->get("/usuarios", "UsuariosController:getUsuarios");
-$app->get("/usuarios/:search", "UsuariosController:getUsuarios");
+$app->get("/usuario", "UsuarioController:getUsuario");
+$app->get("/usuario/:search", "UsuarioController:getUsuario");
 # Create
-$app->get("/usuarios/create", "UsuariosController:createUsuarios");
+$app->get("/usuario/create", "UsuarioController:createUsuario");
 # Form Insert e Update
-$app->post("/usuarios", "UsuariosController:addUsuarios");
-$app->put("/usuarios/:id", "UsuariosController:updateUsuarios");
-$app->delete("/usuarios/:id", "UsuariosController:deleteUsuarios");
+$app->post("/usuario", "UsuarioController:addUsuario");
+$app->put("/usuario/:id", "UsuarioController:updateUsuario");
+$app->delete("/usuario/:id", "UsuarioController:deleteUsuario");
 
 
 # Listagem
-$app->get("/empresas", "EmpresasController:getEmpresas");
-$app->get("/empresas/:search", "EmpresasController:getEmpresas");
+$app->get("/empresa", "EmpresaController:getEmpresa");
+$app->get("/empresa/:search", "EmpresaController:getEmpresa");
 
 # Form Insert e Update
-$app->post("/empresas", "EmpresasController:addEmpresas");
-$app->put("/empresas/:id", "EmpresasController:updateEmpresas");
-$app->delete("/empresas/:id", "EmpresasController:deleteEmpresas");
+$app->post("/empresa", "EmpresaController:addEmpresa");
+$app->put("/empresa/:id", "EmpresaController:updateEmpresa");
+$app->delete("/empresa/:id", "EmpresaController:deleteEmpresa");
+
+# LISTAGEM
+
+$app->get("/produto/", "ProdutoController:getProduto");
+
+# Form Insert e Update
+$app->post("/produto", "ProdutoController:addProduto");
+$app->put("/produto/:id", "ProdutoController:updateProduto");
+$app->delete("/produto/:id", "ProdutoController:deleteProduto");

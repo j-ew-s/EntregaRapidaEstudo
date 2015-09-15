@@ -1,8 +1,10 @@
 {
   "require": {
     "slim/slim": "2.4.3",
-    "illuminate/database": "v4.2.9",
-    "illuminate/validation": "*"
+    "illuminate/database": "*",
+    "illuminate/validation": "*",
+    "illuminate/support": "*",
+    "illuminate/events": "*"
   },
   "autoload": {
     "classmap": [

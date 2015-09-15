@@ -1,6 +1,6 @@
 <?php
 
-class Empresas extends Illuminate\Database\Eloquent\Model
+class Empresa extends Illuminate\Database\Eloquent\Model
 {
   protected $table = 'empresas';
  

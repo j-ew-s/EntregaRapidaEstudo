@@ -37,7 +37,6 @@ foreach (glob( _APP ."/controllers/*.php") as $filename)
     require_once $filename;
 }
 
-
 # === Autoload
 # ==================================================
 //require_once 'vendor/autoload.php';

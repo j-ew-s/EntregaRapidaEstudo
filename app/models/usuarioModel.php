@@ -1,6 +1,6 @@
 <?php
 
-class Usuarios extends Illuminate\Database\Eloquent\Model
+class Usuario extends Illuminate\Database\Eloquent\Model
 {
   protected $table = 'usuarios';
  
@@ -37,17 +37,20 @@ class Usuarios extends Illuminate\Database\Eloquent\Model
   // RETORNA USUÁRIOS BASEADO NO DIGITADO
   public function selectUser($search)
   {
+    
     echo($search);
-    $usuario = new Usuarios();
+    
+    $usuario = new Usuario();
     
     if ( $search ) { 
+      
       $usuario = $usuario->where('nome', 'like', '%'.$search.'%')
                          ->orwhere('sobrenome', 'like', '%'.$search.'%')
                          ->get();                   
     } else {
       $usuario = $usuario->get();
     }
-    
+   
     return $usuario;
     
   }

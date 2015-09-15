@@ -3,7 +3,7 @@
 //require_once "../models/usuariosModel.php";
 require_once _APP . "/models/appModels.php";
 
-class EmpresasController extends BaseController {
+class EmpresaController extends BaseController {
   
   public function getAllEmpresas(){
       
@@ -21,11 +21,11 @@ class EmpresasController extends BaseController {
   *  ENTRADA:  PARAMETROS DA BUSCA ENVIADOS POR POST
   *  SAIDA:    RESULTADO DA BUSCA NA TABELA USUÁRIO E O STATUS DA CONSULTA
   */
-  public function getEmpresas(){
+  public function getEmpresa(){
       // RECEBE OS PARAMETROS DE ENTRADA
       $search = $this->app->request->params("search", false);
       // INSTANCIA A CLASSE USUÁRIO
-       $emp = new Empresas();
+       $empresa = new Empresa();
       // EXECUTA A CONSULTA
       $response =  $emp->selectEmpresa($search);
       // PREPARA A RESPOSTA
@@ -38,24 +38,24 @@ class EmpresasController extends BaseController {
   *   ENTRADA: PARAMETROS DO POST
   *   SAIDA:   RETURN DO STATUS APÓS SALVAR
   */  
-  public function addEmpresas(){ 
+  public function addEmpresa(){ 
       
       //BUSCA OS PARAMETROS
       $empresaPost =  $this->getParametersToInsertEmpresas();
       //VALIDA EMAIL JA EXISTENTE
-      $empresas = new Empresas();
+      $empresa = new Empresa();
 	    //VERIFICAR CNPJ, NOME E RAZAO SOCIAL.
-      $empresaDuplicada = $empresas->VerificaEmpresaDuplicada($empresaPost);
+      $empresaDuplicada = $empresa->VerificaEmpresaDuplicada($empresaPost);
       //VALIDA RESULTADO DA PESQUISA DE DUPLICIDADE
       if($empresaDuplicada > 0){
           $message = "Cadastro realizado com sucesso.";
           $status = "200";
           //SALVA O ENDEREÇO
-          $end = new Enderecos();
+          $end = new Endereco();
           $endId =  $end->insert($empresaPost);
           if($endId > 0){
             //SALVA O USUARIO     
-            $empresaId =  $empresas->insert($empresaPost);
+            $empresaId =  $empresa->insert($empresaPost);
             if($empresaId > 0){
               //SALVA EMPRESA - ENDERECO
               $EmpEnd = new EmpresaEndereco();

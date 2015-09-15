@@ -1,4 +1,6 @@
 <?php
+
+//https://github.com/illuminate/database#usage-instructions
 // Database configuration
 $settings = array(
   'driver'    => 'mysql',
@@ -15,3 +17,4 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $capsule = new Capsule;
 $capsule->addConnection( $settings );
 $capsule->bootEloquent();
+$capsule->setAsGlobal();
